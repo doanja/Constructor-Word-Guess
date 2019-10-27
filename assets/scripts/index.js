@@ -3,6 +3,7 @@ const Letter = require('./Letter');
 const Inquirer = require('inquirer');
 
 const wordbank = ['cheese'];
+const validLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 let numberOfGuesses = 10;
 
 const pickWord = (arr = wordbank) => {
@@ -35,23 +36,37 @@ const promptGuesses = word => {
       name: 'letter'
     }
   ]).then(res => {
-    word.updateWord(res.letter);
-    console.log(word.getWord());
-    // console.log('letter:', res.letter);
+    const guessedLetter = res.letter.toLowerCase(); // force letter to be lowercase
+
+    // check for non-letter
+    if (!validLetters.includes(guessedLetter)) {
+      console.log('Enter a valid letter...');
+    }
+    // letter is incorrect
+    else if (!word.getUnderlyingCharacters().includes(guessedLetter)) {
+      numberOfGuesses--;
+      console.log('INCORRECT!');
+      console.log(numberOfGuesses + ' remaining...');
+      console.log('Current Word:', word.getWord());
+    }
+    // letter is correct
+    else {
+      word.updateWord(guessedLetter);
+      console.log('Current Word:', word.getWord());
+    }
   });
 };
 
 const initializeGame = () => {
   // pick a word
   const currentWord = pickWord();
-  // console.log('currentWord:', pickWord());
-
-  // console.log(currentWord.getWord().includes('_'));
 
   // while there are still blanks... prompt user for letters
-  while (currentWord.getWord().includes('_') && numberOfGuesses > 0) {
-    promptGuesses(currentWord);
-  }
+  // while (currentWord.getWord().includes('_') && numberOfGuesses > 0) {
+  //   promptGuesses(currentWord);
+  // }
+
+  promptGuesses(currentWord);
 };
 
 initializeGame();

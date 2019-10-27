@@ -3,6 +3,7 @@ const Letter = require('./Letter');
 function Word(letterArr) {
   this.letterArr = letterArr;
 
+  // get the word with blanks or the actual letter
   this.getWord = function() {
     let result = '';
     this.letterArr.forEach(letter => {
@@ -11,35 +12,21 @@ function Word(letterArr) {
     return result;
   };
 
+  // update the letter if it has been guessed correctly
   this.updateWord = function(character) {
     this.letterArr.forEach(letter => {
       letter.checkLetter(character);
     });
   };
+
+  // return the underlying character for each letter
+  this.getUnderlyingCharacters = function() {
+    let result = '';
+    this.letterArr.forEach(letter => {
+      result += letter.underlyingCharacter;
+    });
+    return result;
+  };
 }
-
-// let wordArr = [];
-
-// const addLetter = letter => {
-//   const newletter = new Letter(letter);
-//   wordArr.push(newletter);
-// };
-
-// addLetter('c');
-// addLetter('h');
-// addLetter('e');
-// addLetter('e');
-// addLetter('s');
-// addLetter('e');
-
-// const currentWord = new Word(wordArr);
-
-// console.log(currentWord.updateWord('c'));
-// console.log(currentWord.getWord());
-// console.log('currentWord :', currentWord);
-// console.log('----------------------------------------------------');
-// console.log(currentWord.updateWord('h'));
-// console.log(currentWord.getWord());
-// console.log('currentWord :', currentWord);
 
 module.exports = Word;
