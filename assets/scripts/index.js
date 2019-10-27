@@ -2,7 +2,8 @@ const Word = require('./Word');
 const Letter = require('./Letter');
 const Inquirer = require('inquirer');
 
-const wordbank = ['cheese', 'crackers', 'hotdogs', 'chips'];
+const wordbank = ['cheese'];
+let numberOfGuesses = 10;
 
 const pickWord = (arr = wordbank) => {
   let lettersArr = []; // array to store Letters
@@ -25,7 +26,7 @@ const pickWord = (arr = wordbank) => {
   return word;
 };
 
-const promptGuesses = () => {
+const promptGuesses = word => {
   Inquirer.prompt([
     // Here we create a basic text prompt.
     {
@@ -33,11 +34,24 @@ const promptGuesses = () => {
       message: 'Guess a Letter!',
       name: 'letter'
     }
-  ]).then(inquirerResponse => {});
+  ]).then(res => {
+    word.updateWord(res.letter);
+    console.log(word.getWord());
+    // console.log('letter:', res.letter);
+  });
 };
 
 const initializeGame = () => {
   // pick a word
   const currentWord = pickWord();
-  while()
+  // console.log('currentWord:', pickWord());
+
+  // console.log(currentWord.getWord().includes('_'));
+
+  // while there are still blanks... prompt user for letters
+  while (currentWord.getWord().includes('_') && numberOfGuesses > 0) {
+    promptGuesses(currentWord);
+  }
 };
+
+initializeGame();

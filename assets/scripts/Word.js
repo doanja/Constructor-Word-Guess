@@ -18,25 +18,28 @@ function Word(letterArr) {
   };
 }
 
-let wordArr = [];
+// let wordArr = [];
 
-const addLetter = letter => {
-  const newletter = new Letter(letter);
-  wordArr.push(newletter);
-};
+// const addLetter = letter => {
+//   const newletter = new Letter(letter);
+//   wordArr.push(newletter);
+// };
 
-addLetter('c');
-addLetter('h');
-addLetter('e');
-addLetter('e');
-addLetter('s');
-addLetter('e');
+// addLetter('c');
+// addLetter('h');
+// addLetter('e');
+// addLetter('e');
+// addLetter('s');
+// addLetter('e');
 
-const b = new Word(wordArr);
+// const currentWord = new Word(wordArr);
 
-console.log(b.updateWord('e'));
-console.log(b.getWord());
-console.log(b.updateWord('c'));
-console.log(b.getWord());
+// console.log(currentWord.updateWord('c'));
+// console.log(currentWord.getWord());
+// console.log('currentWord :', currentWord);
+// console.log('----------------------------------------------------');
+// console.log(currentWord.updateWord('h'));
+// console.log(currentWord.getWord());
+// console.log('currentWord :', currentWord);
 
 module.exports = Word;
