@@ -1,6 +1,7 @@
 const Word = require('./Word');
 const Letter = require('./Letter');
 const Inquirer = require('inquirer');
+const clear = require('clear');
 
 const wordbank = [
   'feminist',
@@ -35,7 +36,34 @@ const wordbank = [
   'mainstream'
 ];
 
-const validLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+const validLetters = [
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z'
+];
 const MAX_NUMBER_OF_GUESSES = 10;
 let numberOfGuesses = MAX_NUMBER_OF_GUESSES;
 
@@ -71,12 +99,14 @@ const pickWord = (arr = wordbank) => {
 const promptGuesses = word => {
   // when no more guesses remaining (lose conditioin)
   if (numberOfGuesses <= 0) {
+    clear();
     console.log('YOU LOSE! NO GUESSES REMAINING');
     initializeGame();
   }
 
   // when word does not contains underscores (win condition)
   else if (!word.getWord().includes('_')) {
+    clear();
     console.log('CORRECT!');
     initializeGame();
   }
@@ -96,16 +126,19 @@ const promptGuesses = word => {
 
       // check for non-letter
       if (!validLetters.includes(guessedLetter)) {
+        clear();
         console.log('Enter a valid letter...');
       }
       // letter is incorrect
       else if (!word.getUnderlyingCharacters().includes(guessedLetter)) {
+        clear();
         console.log('INCORRECT!');
         console.log(--numberOfGuesses + ' remaining...');
         console.log('Current Word:', word.getWord());
       }
       // letter is correct
       else if (word.getUnderlyingCharacters().includes(guessedLetter)) {
+        clear();
         word.updateWord(guessedLetter);
         console.log('Current Word:', word.getWord());
       }
@@ -129,5 +162,5 @@ const initializeGame = () => {
   // start prompting for guesses
   promptGuesses(currentWord);
 };
-
+clear();
 initializeGame();
